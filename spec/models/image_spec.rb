@@ -6,11 +6,11 @@ RSpec.describe Image, type: :model do
       synset: "n0001",
       name: "example",
     )
-    image_class = Image.new(
+    image = Image.new(
       url: "https://example.com/images/example.png",
       image_class: image_class
     )
 
-    expect(image_class).to be_valid
+    expect(image).to be_valid
   end
 end
