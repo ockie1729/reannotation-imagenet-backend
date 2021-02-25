@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_133132) do
+ActiveRecord::Schema.define(version: 2021_02_25_134617) do
 
   create_table "annotation_labels", force: :cascade do |t|
     t.text "explanation", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "image_id", null: false
+    t.integer "competition_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["competition_id"], name: "index_assignments_on_competition_id"
+    t.index ["image_id"], name: "index_assignments_on_image_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
   end
 
   create_table "competitions", force: :cascade do |t|
@@ -72,5 +83,8 @@ ActiveRecord::Schema.define(version: 2021_02_25_133132) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "assignments", "competitions"
+  add_foreign_key "assignments", "images"
+  add_foreign_key "assignments", "users"
   add_foreign_key "images", "image_classes"
 end
