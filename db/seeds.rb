@@ -27,8 +27,8 @@ annotation_label1 = AnnotationLabel.create!(
 )
 
 competition1 = Competition.create!(
-  starts_at: DateTime.parse('2021-01-01T12:20:00+09:00'),
-  ends_at: DateTime.parse('2021-01-01T14:20:00+09:00'),
+  starts_at: DateTime.parse('2030-01-01T12:20:00+09:00'),
+  ends_at: DateTime.parse('2030-01-01T14:20:00+09:00'),
   title: 'sample competition',
   explanation: 'サンプルのコンペです.',
 )
