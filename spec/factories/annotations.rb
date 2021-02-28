@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :annotation do
-    image { Image.new }
-    annotation_label { AnnotationLabel.new }
-    user { User.new }
-    assignment { Assignment.new }
+    association :annotation_label
+    association :assignment
+    user { assignment.user }
+    image { assignment.image }
   end
 end
