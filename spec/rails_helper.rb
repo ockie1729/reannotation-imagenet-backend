@@ -64,4 +64,7 @@ RSpec.configure do |config|
 
   # FactoryBotのメソッドをクラス名を指定せずに使えるようにする
   config.include FactoryBot::Syntax::Methods
+
+  # DeviseTokenAuthで認証するためのhelperを使えるようにする
+  config.include AuthorizationSpecHelper, type: :request
 end
