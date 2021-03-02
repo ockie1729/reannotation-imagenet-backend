@@ -4,7 +4,10 @@ RSpec.describe "LeaderBoards", type: :request do
 
   describe "GET /index" do
     it "returns http success" do
-      get "/leader_board"
+      user = create(:user)
+      auth_token = sign_in_through_api(user)
+
+      get "/leader_board", headers: auth_token
       expect(response).to have_http_status(:success)
     end
   end
