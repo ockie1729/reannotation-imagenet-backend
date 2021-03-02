@@ -4,7 +4,8 @@ RSpec.describe "LeaderBoards", type: :request do
 
   describe "GET /index" do
     it "returns http success" do
-      user = create(:user)
+      annotation = create(:annotation)
+      user = annotation.user
       auth_token = sign_in_through_api(user)
 
       get "/leader_board", headers: auth_token
