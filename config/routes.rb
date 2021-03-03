@@ -3,5 +3,5 @@ Rails.application.routes.draw do
 
   get 'competitions/next'
   get 'leader_board', to: 'leader_board#index'
-  get 'assignments', to: 'assignments#show'
+  get 'assignment', to: 'assignments#show'  # URLは/assignmentで単数形
 end
