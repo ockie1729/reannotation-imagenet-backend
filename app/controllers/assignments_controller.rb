@@ -30,6 +30,17 @@ class AssignmentsController < ApplicationController
     SQL
     assignments = Assignment.find_by_sql([sql, {user_id: current_user.id}])
 
+    assignments_users = assignments.map do |assignment|
+      {id: assignment.id,
+       user_id: current_user.id,
+       image_id: assignment.image.id,
+       competition_id: assignment.competition.id,
+       created_at: assignment.created_at,
+       updated_at: Time.current,
+      }
+    end
+    Assignment.upsert_all(assignments_users)
+
     responses = assignments.map do |assignment|
       {imageId: assignment.image.id,
        imageUrl: assignment.image.url

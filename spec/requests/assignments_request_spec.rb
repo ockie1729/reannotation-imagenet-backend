@@ -8,12 +8,14 @@ RSpec.describe "Assignments", type: :request do
       user = create(:user)
       image = assignment.image
       auth_token = sign_in_through_api(user)
-
+ 
       get "/assignment", headers: auth_token
       expect(response).to have_http_status(:success)
 
       assignments = JSON.parse(response.body)
       expect(assignments.first['imageUrl']).to eq image.url
+
+      expect(Assignment.find(assignment.id).user).to eq(user)
     end
   end
 
