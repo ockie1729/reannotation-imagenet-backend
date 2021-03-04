@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_150606) do
   end
 
   create_table "assignments", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.integer "image_id", null: false
     t.integer "competition_id", null: false
     t.datetime "created_at", precision: 6, null: false

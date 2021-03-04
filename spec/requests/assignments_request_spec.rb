@@ -5,7 +5,7 @@ RSpec.describe "Assignments", type: :request do
   describe "GET /assignment" do
     it "returns http success" do
       assignment = create(:assignment)
-      user = assignment.user
+      user = create(:user)
       image = assignment.image
       auth_token = sign_in_through_api(user)
 
@@ -20,7 +20,7 @@ RSpec.describe "Assignments", type: :request do
   describe "POST /assignment" do
     it "returns http success and add new record" do
       assignment = create(:assignment)
-      user = assignment.user
+      user = create(:user)
       annotation_label = create(:annotation_label)
       auth_token = sign_in_through_api(user)
 
