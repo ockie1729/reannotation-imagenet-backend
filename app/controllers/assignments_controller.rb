@@ -1,5 +1,5 @@
 class AssignmentsController < ApplicationController
-  before_action :authenticate_user!, only: [:show]
+  before_action :authenticate_user!, only: [:show, :new]
 
   def show
     sql = <<-SQL
@@ -37,5 +37,18 @@ class AssignmentsController < ApplicationController
     end
 
     render json: responses
+  end
+
+  def new
+    annotations = params[:annotations].map do |annotation|
+      {assignment_id: annotation[:assignmentId].to_i,
+       annotation_label_id: annotation[:annotation].to_i,
+       user_id: current_user.id,
+       created_at: Time.current,
+       updated_at: Time.current,
+      }
+    end
+
+    Annotation.insert_all(annotations)
   end
 end
