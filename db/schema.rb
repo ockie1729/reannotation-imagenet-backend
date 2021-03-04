@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_25_135820) do
+ActiveRecord::Schema.define(version: 2021_03_04_150606) do
 
   create_table "annotation_labels", force: :cascade do |t|
     t.text "explanation", null: false
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 2021_02_25_135820) do
   end
 
   create_table "annotations", force: :cascade do |t|
-    t.integer "image_id", null: false
     t.integer "annotation_label_id", null: false
     t.integer "user_id", null: false
     t.integer "assignment_id", null: false
@@ -27,7 +26,6 @@ ActiveRecord::Schema.define(version: 2021_02_25_135820) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["annotation_label_id"], name: "index_annotations_on_annotation_label_id"
     t.index ["assignment_id"], name: "index_annotations_on_assignment_id"
-    t.index ["image_id"], name: "index_annotations_on_image_id"
     t.index ["user_id"], name: "index_annotations_on_user_id"
   end
 
@@ -98,7 +96,6 @@ ActiveRecord::Schema.define(version: 2021_02_25_135820) do
 
   add_foreign_key "annotations", "annotation_labels"
   add_foreign_key "annotations", "assignments"
-  add_foreign_key "annotations", "images"
   add_foreign_key "annotations", "users"
   add_foreign_key "assignments", "competitions"
   add_foreign_key "assignments", "images"
