@@ -25,5 +25,5 @@ jobs:
       run: |
         gem install bundler
         bundle install --path vendor/bundle --quiet --jobs 4 --retry 3
-        bundle exec bin/rails db:migrate
+        bin/rails db:migrate:reset
         bundle exec rspec
