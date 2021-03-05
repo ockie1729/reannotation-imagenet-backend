@@ -30,4 +30,4 @@ jobs:
         bin/rails db:create
         bin/rails db:schema:load
     - name: Run test
-      run: bin/rspec
+      run: bundle exec rspec
