@@ -25,12 +25,9 @@ jobs:
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
-      working-directory: ./src
     - name: Prepare database
       run: |
         bin/rails rails db:create
         bin/rails rails db:schema:load
-      working-directory: ./src
     - name: Run test
       run: bin/rspec
-      working-directory: ./src
