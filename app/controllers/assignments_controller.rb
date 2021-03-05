@@ -39,6 +39,7 @@ class AssignmentsController < ApplicationController
        updated_at: Time.current,
       }
     end
+    # FIXME assignments_usersが空の時を対応
     Assignment.upsert_all(assignments_users)
 
     responses = assignments.map do |assignment|
