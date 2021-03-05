@@ -21,9 +21,16 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 3.0.x
-    - name: Test with Rspec
+    - name: Prepare bundler
       run: |
         gem install bundler
-        bundle install --quiet --jobs 4 --retry 3
-        bundle exec rails db:migrate:reset
-        bundle exec rspec
+        bundle install --jobs 4 --retry 3
+      working-directory: ./src
+    - name: Prepare database
+      run: |
+        bin/rails rails db:create
+        bin/rails rails db:schema:load
+      working-directory: ./src
+    - name: Run test
+      run: bin/rspec
+      working-directory: ./src
