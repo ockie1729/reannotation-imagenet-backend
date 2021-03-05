@@ -33,15 +33,20 @@ competition1 = Competition.create!(
   explanation: 'サンプルのコンペです.',
 )
 
-assignment1 = Assignment.create!(
-  user: user1,
-  image: images[0],
-  competition: competition1,
-)
+assignments = []
+10.times do |i|
+  assignment = Assignment.create!(
+    image: images[0],
+    competition: competition1,
+  )
+  assignments.push(assignment)
+end
+
+assignments[0].user = user1
+assignments[0].save!
 
 annotation1 = Annotation.create!(
-  image: images[0],
   annotation_label: annotation_label1,
   user: user1,
-  assignment: assignment1,
+  assignment: assignments[0],
 )
