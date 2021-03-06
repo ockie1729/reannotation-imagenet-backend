@@ -27,7 +27,7 @@ jobs:
         bundle install --jobs 4 --retry 3
     - name: Prepare database
       run: |
-        bin/rails db:create
-        bin/rails db:schema:load
+        bundle exec rails db:migrate
+        bundle exec rails db:seed
     - name: Run test
       run: bundle exec rspec
