@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run_spec:
+    name: Run spec
+
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Ruby 3.0
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 3.0.x
+    - name: Prepare bundler
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+    - name: Prepare database
+      run: |
+        bundle exec rails db:migrate
+        bundle exec rails db:seed
+    - name: Run test
+      run: bundle exec rspec
