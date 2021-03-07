@@ -4,7 +4,7 @@ class CompetitionsController < ApplicationController
   # 次のコンペティションの情報を返却
   def next
     next_competition = Competition.
-                         where('starts_at > ?', Time.current).
+                         where('ends_at > ?', Time.current).
                          order('starts_at').
                          first
 
