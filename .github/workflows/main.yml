@@ -30,4 +30,6 @@ jobs:
         bundle exec rails db:migrate
         bundle exec rails db:seed
     - name: Run test
-      run: bundle exec rspec
+      run: |
+        sqlite3 --version
+        bundle exec rspec
