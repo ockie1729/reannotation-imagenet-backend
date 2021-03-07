@@ -6,37 +6,43 @@ user1 = User.create!(
   password: 'password',
 )
 
-image_class1 = ImageClass.create!(
-  synset: 'n0001',
-  name: 'image_class1',
-)
-
+image_classes = {} 
+["n13133613", "n15075141"].each do |synset|
+  image_classes[synset] = ImageClass.create!(
+    synset: synset,
+    name: synset,
+  )
+end
 
 # 画像を作成
 images = []
-20.times do
-  image = Image.create!(
-    url: 'https://example.com/example.png',
-    image_class: image_class1,
-  )
-  images.push(image)
-end
+File.open('db/ILSVRC2012_train_last_2_classes.list') { |f|
+  f.each_line do |line|
+    synset, url = line.split(',')
+
+    image = Image.create!(
+      url: url,
+      image_class: image_classes[synset],
+    )
+    images.push(image)
+  end
+}
 
 annotation_label1 = AnnotationLabel.create!(
   explanation: 'noise'
 )
 
 competition1 = Competition.create!(
-  starts_at: DateTime.parse('2030-01-01T12:20:00+09:00'),
+  starts_at: DateTime.parse('2000-01-01T12:20:00+09:00'),
   ends_at: DateTime.parse('2030-01-01T14:20:00+09:00'),
   title: 'sample competition',
   explanation: 'サンプルのコンペです.',
 )
 
 assignments = []
-10.times do |i|
+30.times do |i|
   assignment = Assignment.create!(
-    image: images[0],
+    image: images[i],
     competition: competition1,
   )
   assignments.push(assignment)

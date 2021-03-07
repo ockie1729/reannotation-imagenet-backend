@@ -52,6 +52,7 @@ class AssignmentsController < ApplicationController
   end
 
   def new
+    # FIXME 送信されてきたデータのバリデーションを追加
     annotations = params[:annotations].map do |annotation|
       {assignment_id: annotation[:assignmentId].to_i,
        annotation_label_id: annotation[:annotation].to_i,
@@ -62,5 +63,7 @@ class AssignmentsController < ApplicationController
     end
 
     Annotation.insert_all(annotations)
+
+    render status: 200
   end
 end
