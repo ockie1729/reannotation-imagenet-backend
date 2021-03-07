@@ -43,7 +43,7 @@ class AssignmentsController < ApplicationController
     Assignment.upsert_all(assignments_users)
 
     responses = assignments.map do |assignment|
-      {imageId: assignment.image.id,
+      {assignmentId: assignment.id,
        imageUrl: assignment.image.url
       }
     end
