@@ -2,6 +2,17 @@ class AssignmentsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new]
 
   def show
+    # コンペティションが開催中か確認
+    count_running_competition = Competition.
+                                  where('starts_at < ?', Time.current).
+                                  where('ends_at > ?', Time.current).
+                                  count
+
+    if count_running_competition == 0
+      render json: {message: 'no competition is running'}, status: 200
+      return
+    end
+
     sql = <<-SQL
       WITH assignments_without_annotation AS (
         SELECT
