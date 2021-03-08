@@ -63,6 +63,17 @@ class AssignmentsController < ApplicationController
   end
 
   def new
+    # コンペティションが開催中か確認
+    count_running_competition = Competition.
+                                  where('starts_at < ?', Time.current).
+                                  where('ends_at > ?', Time.current).
+                                  count
+
+    if count_running_competition == 0
+      render json: {message: 'no competition is running'}, status: 200
+      return
+    end
+
     # FIXME 送信されてきたデータのバリデーションを追加
     annotations = params[:annotations].map do |annotation|
       {assignment_id: annotation[:assignmentId].to_i,
