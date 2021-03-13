@@ -1,6 +1,9 @@
 class AssignmentsController < ApplicationController
   before_action :authenticate_user!, only: [:show, :new]
 
+  # 一回の/assignmentで取得される画像数
+  N_IMAGES_IN_ASSIGNMENT = 5
+
   def show
     # コンペティションが開催中か確認
     count_running_competition = Competition.
@@ -37,9 +40,12 @@ class AssignmentsController < ApplicationController
         assignments.id = assignments_without_annotation.id
       WHERE
         (assignments.user_id IS NULL)
-        OR (assignments.user_id = :user_id);
+        OR (assignments.user_id = :user_id)
+      LIMIT
+        :n_images;
     SQL
-    assignments = Assignment.find_by_sql([sql, {user_id: current_user.id}])
+    assignments = Assignment.find_by_sql([sql, {user_id: current_user.id,
+                                                n_images: N_IMAGES_IN_ASSIGNMENT}])
 
     assignments_users = assignments.map do |assignment|
       {id: assignment.id,
