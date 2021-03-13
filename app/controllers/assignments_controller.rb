@@ -46,6 +46,7 @@ class AssignmentsController < ApplicationController
     SQL
     assignments = Assignment.find_by_sql([sql, {user_id: current_user.id,
                                                 n_images: N_IMAGES_IN_ASSIGNMENT}])
+    ActiveRecord::Associations::Preloader.new.preload(assignments, [:image, :competition])
 
     assignments_users = assignments.map do |assignment|
       {id: assignment.id,

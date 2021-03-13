@@ -14,16 +14,30 @@ RSpec.describe "Assignments", type: :request do
       competition.save!
 
       user = create(:user)
-      image = assignment.image
       auth_token = sign_in_through_api(user)
  
       get "/assignment", headers: auth_token
       expect(response).to have_http_status(:success)
 
       assignments = JSON.parse(response.body)
+      image = assignment.image
       expect(assignments.first['imageUrl']).to eq image.url
 
       expect(Assignment.find(assignment.id).user).to eq(user)
+    end
+
+    it "指定された枚数を上限に画像を返却" do
+      competition = create(:competition)
+      assignments = create_list(:assignment, 30, competition: competition)
+
+      user = create(:user)
+      auth_token = sign_in_through_api(user)
+
+      get "/assignment", headers: auth_token
+      expect(response).to have_http_status(:success)
+
+      responsed_assignments = JSON.parse(response.body)
+      expect(responsed_assignments.size).to eq 5
     end
 
     it "returns dict if competition is not running" do
