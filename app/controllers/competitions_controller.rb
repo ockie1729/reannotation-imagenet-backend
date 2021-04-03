@@ -30,4 +30,18 @@ class CompetitionsController < ApplicationController
 
     render json: serialized_next_competition
   end
+
+  # FIXME デバッグ用
+  def update
+    competition_id = params[:competition_id]
+    new_starts_at = DateTime.strptime(params[:new_starts_at], '%Y-%m-%dT%H:%M:%S%z')
+    new_ends_at = DateTime.strptime(params[:new_ends_at], '%Y-%m-%dT%H:%M:%S%z')
+
+    competition = Competition.find_by(id: competition_id)
+    competition.starts_at = new_starts_at
+    competition.ends_at = new_ends_at
+    competition.save!
+
+    render json: {"message":"update successfully", "competition":competition}
+  end
 end
