@@ -134,9 +134,6 @@ GEM
     pry (0.14.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
-      byebug (~> 11.0)
-      pry (~> 0.10)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     puma (5.2.0)
@@ -212,6 +209,7 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.4.2)
     thor (1.1.0)
+    tqdm (0.3.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uniform_notifier (1.14.1)
@@ -235,7 +233,6 @@ DEPENDENCIES
   guard-rspec
   listen (~> 3.3)
   pg
-  pry-byebug
   pry-rails
   puma (~> 5.0)
   rack-cors
@@ -243,6 +240,7 @@ DEPENDENCIES
   rspec-rails
   spring
   sqlite3 (~> 1.4)
+  tqdm
   tzinfo-data
 
 RUBY VERSION

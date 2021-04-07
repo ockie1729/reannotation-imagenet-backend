@@ -1,4 +1,5 @@
 require 'date'
+require 'tqdm'
 
 user1 = User.create!(
   name: 'J.S. Bach',
@@ -15,9 +16,10 @@ image_classes = {}
 end
 
 # 画像を作成
+puts 'making images...'
 images = []
 File.open('db/ILSVRC2012_train_last_2_classes.list') { |f|
-  f.each_line do |line|
+  f.tqdm.each_line do |line|
     synset, url = line.split(',')
 
     image = Image.create!(
@@ -39,10 +41,11 @@ competition1 = Competition.create!(
   explanation: 'サンプルのコンペです.',
 )
 
+puts 'making assignments...'
 assignments = []
-30.times do |i|
+images.tqdm.each do |image|
   assignment = Assignment.create!(
-    image: images[i],
+    image: image,
     competition: competition1,
   )
   assignments.push(assignment)
