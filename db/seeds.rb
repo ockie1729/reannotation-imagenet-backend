@@ -20,7 +20,7 @@ puts 'making images...'
 images = []
 File.open('db/ILSVRC2012_train_last_2_classes.list') { |f|
   f.tqdm.each_line do |line|
-    synset, url = line.split(',')
+    synset, url = line.chomp.split(',')
 
     image = Image.create!(
       url: url,
