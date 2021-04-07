@@ -57,7 +57,13 @@ class AssignmentsController < ApplicationController
        updated_at: Time.current,
       }
     end
-    # FIXME assignments_usersが空の時を対応
+
+    # assignments_usersが空の時
+    if assignments_users.size == 0
+        render json: []
+        return
+    end
+
     Assignment.upsert_all(assignments_users)
 
     responses = assignments.map do |assignment|
