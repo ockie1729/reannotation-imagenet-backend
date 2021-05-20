@@ -88,7 +88,9 @@ class AssignmentsController < ApplicationController
     end
 
     # FIXME 送信されてきたデータのバリデーションを追加
-    annotations = params[:annotations].map do |annotation|
+    # TODO paramsの受け取り方を必要なら修正
+    params_annotations = JSON.parse(request.body.read, {:symbolize_names => true})[:annotations]
+    annotations = params_annotations.map do |annotation|
       {assignment_id: annotation[:assignmentId].to_i,
        annotation_label_id: annotation[:annotation].to_i,
        user_id: current_user.id,
