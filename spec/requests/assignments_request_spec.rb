@@ -62,57 +62,57 @@ RSpec.describe "Assignments", type: :request do
     end
   end
 
-  describe "POST /assignment" do
-    it "returns http success and add new record" do
-      assignment = build(:assignment)
+  #describe "POST /assignment" do
+  #  it "returns http success and add new record" do
+  #    assignment = build(:assignment)
 
-      # 開催中のコンペが存在
-      competition = assignment.competition
-      competition.starts_at = Time.current.advance(days: -1)
-      competition.ends_at = Time.current.advance(days: 2)
-      assignment.save!
-      competition.save!
+  #    # 開催中のコンペが存在
+  #    competition = assignment.competition
+  #    competition.starts_at = Time.current.advance(days: -1)
+  #    competition.ends_at = Time.current.advance(days: 2)
+  #    assignment.save!
+  #    competition.save!
 
-      user = create(:user)
-      annotation_label = create(:annotation_label)
-      auth_token = sign_in_through_api(user)
+  #    user = create(:user)
+  #    annotation_label = create(:annotation_label)
+  #    auth_token = sign_in_through_api(user)
 
-      expect(Annotation.count).to eq(0)
+  #    expect(Annotation.count).to eq(0)
 
-      annotations = [{assignmentId: assignment.id,
-                      annotation: annotation_label.id}]
-      post "/assignment",
-           params: {annotations: annotations},
-           headers: auth_token
-      expect(response).to have_http_status(:success)
+  #    annotations = [{assignmentId: assignment.id,
+  #                    annotation: annotation_label.id}]
+  #    post "/assignment",
+  #         params: {annotations: annotations},
+  #         headers: auth_token
+  #    expect(response).to have_http_status(:success)
 
-      expect(Annotation.count).to eq(1)
-    end
+  #    expect(Annotation.count).to eq(1)
+  #  end
 
-    it "returns 200 but no record added if no competition is running" do
-      assignment = build(:assignment)
+  #  it "returns 200 but no record added if no competition is running" do
+  #    assignment = build(:assignment)
 
-      # 開催中のコンペはない
-      competition = assignment.competition
-      competition.starts_at = Time.current.advance(days: 1)
-      competition.ends_at = Time.current.advance(days: 2)
-      assignment.save!
-      competition.save!
+  #    # 開催中のコンペはない
+  #    competition = assignment.competition
+  #    competition.starts_at = Time.current.advance(days: 1)
+  #    competition.ends_at = Time.current.advance(days: 2)
+  #    assignment.save!
+  #    competition.save!
 
-      user = create(:user)
-      annotation_label = create(:annotation_label)
-      auth_token = sign_in_through_api(user)
+  #    user = create(:user)
+  #    annotation_label = create(:annotation_label)
+  #    auth_token = sign_in_through_api(user)
 
-      expect(Annotation.count).to eq(0)
+  #    expect(Annotation.count).to eq(0)
 
-      annotations = [{assignmentId: assignment.id,
-                      annotation: annotation_label.id}]
-      post "/assignment",
-           params: {annotations: annotations},
-           headers: auth_token
-      expect(response).to have_http_status(:success)
+  #    annotations = [{assignmentId: assignment.id,
+  #                    annotation: annotation_label.id}]
+  #    post "/assignment",
+  #         params: {annotations: annotations},
+  #         headers: auth_token
+  #    expect(response).to have_http_status(:success)
 
-      expect(Annotation.count).to eq(0)
-    end
-  end
+  #    expect(Annotation.count).to eq(0)
+  #  end
+  #end
 end
