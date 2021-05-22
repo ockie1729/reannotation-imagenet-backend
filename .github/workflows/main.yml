@@ -20,7 +20,7 @@ jobs:
     - name: Set up Ruby 3.0
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 3.0.x
+        ruby-version: 3.0.0
     - name: Prepare bundler
       run: |
         gem install bundler
