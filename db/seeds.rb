@@ -8,7 +8,7 @@ user1 = User.create!(
 )
 
 image_classes = {} 
-["n13133613", "n15075141"].each do |synset|
+["n13052670", "n13054560"].each do |synset|
   image_classes[synset] = ImageClass.create!(
     synset: synset,
     name: synset,
@@ -18,7 +18,7 @@ end
 # 画像を作成
 puts 'making images...'
 images = []
-File.open('db/ILSVRC2012_train_last_2_classes.list') { |f|
+File.open('db/ILSVRC2012_train_selected_2_classes.list') { |f|
   f.tqdm.each_line do |line|
     synset, url = line.chomp.split(',')
 
