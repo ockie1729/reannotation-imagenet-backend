@@ -3,6 +3,7 @@
 import argparse
 import os
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--img_rootd", type=str, required=True)
@@ -19,8 +20,8 @@ def main():
     with open(args.out, mode="w") as f:
         for class_name in fnames_dict.keys():
             for fname in fnames_dict[class_name]:
-                url = 'http://xpaperchallenge.org/tmp/{0}/{1}'.format(class_name,
-                                                                      fname)
+                url = 'http://xpaperchallenge.org/tmp/{0}/{1}'. \
+                      format(class_name, fname)
                 f.write('{0},{1}\n'.format(class_name,
                                            url))
 
